@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
     <link rel="stylesheet" href="vendors/animate-css/animate.css">
+    <link rel="stylesheet" href="css/medicalassistanceStyle.css">
     <!-- main css -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -98,14 +99,15 @@
     <!--================End Home Banner Area =================-->
 
 <!--================ Login Area Starts =================-->
-    <section class="appointment-area area-padding" style="background-color: rgb(69, 179, 157);">
+    <section class="appointment-area area-padding" style="background-image: url('images/registerbg.jpg'); background-repeat: no-repeat; background-size: 1290px 1900px" id="register">
         <div class="container">
             <div>
                 <div class="row">
-                    <div class="col-lg-5">
+                    <div class="col-lg-9">
                         <div class="appointment-form">
                             <h3 align="center">Registration</h3>
-                            <form action="registration.php" onsubmit="return validation()" name="reg" method="post">
+                            <hr>
+                            <form action="registration.php" method="post">
                                 <div class="form-group">
                                     <label>Select Role</label>
                                     <select class="form-control" id="ddlview" name="selrole">
@@ -127,17 +129,14 @@
                                     <label>Email</label>
                                     <input type="email" id="email" name="email" placeholder="Enter your Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Email'" required> 
                                 </div>
-                                <div class="form-group">
-                                    <label>Your address</label>
-                                    <textarea cols="20" rows="7" id="address" name="address" placeholder="Enter your address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your address'" required></textarea>
-                                </div>
+
                                 <div class="form-group">
                                     <label>Select your gender</label>
                                     
-                                        <input type="radio" id="male" name="gender" value="male" class="radio-inline" style="width: 20px; height: 20px; margin-left: 40px;">
-                                        <label for="male" style="position: relative; bottom: 30px; left: 70px;">Male</label>
-                                        <input type="radio" id="female" name="gender" value="female" class="radio-inline" style="width: 20px; height: 20px; margin-left: 40px;">
-                                        <label for="female" style="position: relative; bottom: 30px; left: 70px;">Female</label>
+                                        <input type="radio" id="male" name="gender" value="male" class="radio-inline" style="width: 20px; height: 20px; margin-left: 130px;">
+                                        <label for="male" style="position: relative; bottom: 30px;">Male</label>
+                                        <input type="radio" id="female" name="gender" value="female" class="radio-inline" style="width: 20px; height: 20px; margin-left: 130px;">
+                                        <label for="female" style="position: relative; bottom: 30px;">Female</label>
                                     
                                 </div>
                                 <div class="form-group">
@@ -148,8 +147,12 @@
                                     <label>Set your Password</label>
                                     <input type="password" id="pass" name="password" placeholder="Set your Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Set your Password'" required> 
                                 </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input type="password" id="cpass" name="confirm_password" placeholder="Confirm password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'" required> 
+                                </div>
                                 <br>
-                                <input type="submit" id="btn" value="Register" name="register" style="background-color: #0051D2; font-family: sans-serif; font-weight: bold; font-size: 25px;" />
+                                <button type="submit" class="btn btn-default" value="Register" name="register" style="background-color: #0051D2; font-family: sans-serif; font-weight: bold; font-size: 20px;">Register</button>
                             </form>
                         </div>
                     </div>
