@@ -1,42 +1,86 @@
 <?php
 
-	include('connection.php');
+include 'connection.php';
 
-		session_start();
-		$username = "";
-		$email    = "";
+if(isset($_POST['register']))
+{
+    $role = mysqli_real_escape_string($conn, $_POST['selrole']);
+    $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
+    $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
 
-		if (isset($_POST['register'])) {
-		  $role = mysqli_real_escape_string($conn, $_POST['selrole']);
-		  $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
-		  $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
-		  $email = mysqli_real_escape_string($conn, $_POST['email']);
-		  $address = mysqli_real_escape_string($conn, $_POST['address']);
-		  $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-		  $username = mysqli_real_escape_string($conn, $_POST['username']);
-		  $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $pass = password_hash($password, PASSWORD_BCRYPT);
+    $confirm_pass = password_hash($confirm_password, PASSWORD_BCRYPT);
 
-		  $user_check_query = "SELECT * FROM registration WHERE username='$username' OR email='$email' LIMIT 1";
-		  $result = mysqli_query($conn, $user_check_query);
-		  $user = mysqli_fetch_assoc($result);
-		  
-		  if ($user) { 
-		    if ($user['username'] === $username) {
-		    	echo '<script type="text/javascript">';
-				echo ' alert("Username already exists")';  
-				echo '</script>';
-		    }
+    //Check email already present in table or not
+    $emailquery = "select * from registration where email = '$email' ";
+    $query = mysqli_query($conn, $emailquery);
 
-		    if ($user['email'] === $email) {
-		    	echo '<script type="text/javascript">';
-				echo ' alert("Email already exists")';  
-				echo '</script>';
-		    }
-		  }
-		  $query = "INSERT INTO registration (role,firstname,lastname,email,address,gender,username,password) 
-		  			 VALUES('$role','$firstname','$lastname','$email','$address','$gender','$username','$password')";
-		  mysqli_query($conn, $query);
-		  $_SESSION['username'] = $username;
-		  $_SESSION['success'] = "You are now logged in";
-		}
-?>
+    $emailcount = mysqli_num_rows($query);
+
+    //check for the username 
+    $usernamequery = "select * from registration where username = '$username' ";
+    $uquery = mysqli_query($conn, $usernamequery);
+
+    $usernamecount = mysqli_num_rows($uquery);
+
+    if($emailcount > 0)
+    {
+        echo  '<script type="text/javascript">
+                    alert("Email already exists.. !");
+                </script>';
+    }
+
+    elseif($usernamecount > 0)
+     {
+        # code...
+        echo  '<script type="text/javascript">
+                    alert("Username already exists.. !");
+                </script>';
+    }
+    else
+    {
+        if($password === $confirm_password)
+        {
+            $insertquery = "insert into registration(role, firstname, lastname, email, gender, username, password, confirm_password) values('$role','$firstname','$lastname','$email','$gender','$username','$pass','$confirm_pass') ";
+
+            $iquery = mysqli_query($conn, $insertquery);
+            if($iquery)
+            {
+                ?>
+                <script type="text/javascript">
+                    alert("Inserted successfully");
+                    header("location: forgotPassword.html");
+                </script>
+
+                <?php
+            }
+            else
+            {
+                ?>
+                <script type="text/javascript">
+                    alert("no insert");
+                </script>
+
+                <?php
+            }
+        }
+
+        else
+        {   
+            ?>
+                <script type="text/javascript">
+                    alert("password not matching ");
+                </script>
+                <?php
+        }
+    }
+
+}
+
+
+?>git 
