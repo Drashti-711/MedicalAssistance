@@ -8,7 +8,7 @@ if(isset($_POST['register']))
     $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
     $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+ //   $gender = mysqli_real_escape_string($conn, $_POST['gender']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
@@ -46,15 +46,15 @@ if(isset($_POST['register']))
     {
         if($password === $confirm_password)
         {
-            $insertquery = "insert into registration(role, firstname, lastname, email, gender, username, password, confirm_password) values('$role','$firstname','$lastname','$email','$gender','$username','$pass','$confirm_pass') ";
+            $insertquery = "insert into registration(role, firstname, lastname, email, username, password, confirm_password) values('$role','$firstname','$lastname','$email','$username','$pass','$confirm_pass') ";
 
             $iquery = mysqli_query($conn, $insertquery);
             if($iquery)
             {
                 ?>
                 <script type="text/javascript">
-                    alert("Inserted successfully");
-                    header("location: forgotPassword.html");
+                    alert("REGISTER SUCCESSFULLY");
+                    location.replace("login.html");
                 </script>
 
                 <?php
@@ -63,7 +63,8 @@ if(isset($_POST['register']))
             {
                 ?>
                 <script type="text/javascript">
-                    alert("no insert");
+                    alert("SOME ERROR OCCURED IN REGISTRATION");
+                    location.replace("registration.html");
                 </script>
 
                 <?php
