@@ -1,30 +1,72 @@
-<?php      
-    include('connection.php');  
-    
-        
-        if(isset($_POST['submit'])) {
-            $username = $_POST['username'];   
-            $password = $_POST['password'];      
-        }
-        
+<?php
+session_start();
+?>
 
-        //to prevent from mysqli injection  
-        $username = stripcslashes($username);  
-        $password = stripcslashes($password);  
-        $username = mysqli_real_escape_string($conn, $username);  
-        $password = mysqli_real_escape_string($conn, $password);  
-           
+<?php
+//session_start();
 
-        mysqli_connect("localhost", "root" , "");
-        mysqli_select_db($conn,"medassistance");
+include 'connection.php';
 
-        $result = mysqli_query($conn,"select * from login where username = '$username' and password = '$password'")
-                    or die("Failed to query databse" .mysqli_error());
-        $row = mysqli_fetch_array($result);
-        if($row['username'] == $username && $row['password'] == $password) {
-            echo "<h1><center> Login successful </center></h1>";
-        }
-        else {
-            echo "<h1> Login failed. Invalid username or password.</h1>";
-        }
-?>  
+if(isset($_POST['submit']))
+{
+//	$role = $_POST['role'];
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+
+	//check the enetered email is present or not
+	$email_search = "select * from registration where email='$email'  ";
+	$query = mysqli_query($conn , $email_search);
+
+	$email_count = mysqli_num_rows($query);
+
+	if($email_count)
+	{
+	//	echo $email_count;
+	
+		//match password
+		$email_pass = mysqli_fetch_assoc($query);
+
+		$db_pass = $email_pass['password'];
+
+		$pass_decode = password_verify($password, $db_pass);
+	//	echo $pass_decode;
+		if($pass_decode)
+		{
+			//insert LOGIN details from REGISTRATION table 
+			$insertquery = "insert into login (role, username, password)
+			select role, username, password from registration  ";
+			$iquery = mysqli_query($conn , $insertquery);
+
+			if($iquery)
+			{  
+				?>
+				<script type="text/javascript">
+					alert("Login Successful ");
+					location.replace("index.html");
+				</script>
+				<?php
+			}
+		}
+		else
+		{
+		//	echo $pass_decode;
+			?>
+			<script type="text/javascript">
+				alert("PASSWORD INCORRECT");
+				location.replace("login.html");
+			</script>
+			<?php
+		}
+	}
+	else
+	{
+		?>
+		<script type="text/javascript">
+			alert("INVALID EMAIL");
+			location.replace("login.html");
+		</script>
+		<?php
+	}
+}
+
+?>
