@@ -75,7 +75,7 @@ if(isset($_POST['register']))
         {   
             ?>
                 <script type="text/javascript">
-                    alert("password not matching ");
+                    alert("Password not Matching ");
                 </script>
                 <?php
         }
