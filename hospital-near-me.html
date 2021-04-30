@@ -102,17 +102,26 @@
                     <div class="col-lg-5">
                         <div class="appointment-form">
                             <h3>Find Hospital</h3>
-                            <form action="#">
+                            <form action="indexhospital.php" method="POST">
+                                <div class="form-group">
+                                    <label>Select your Country</label>
+                                    <select class="form-control" id="country">
+                                        <option>--Select your Country--</option>
+                                        <option>INDIA</option>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label>Select your State</label>
-                                    <select class="form-control" id="sel1">
+                                    <select class="form-control" id="state">
                                         <option>--Select your State--</option>
+                                        <option>GUJARAT</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Select your City</label>
-                                    <select class="form-control" id="sel1">
+                                    <select class="form-control" id="city">
                                         <option>--Select your City--</option>
+                                        <option>AHMEDABAD</option>
                                     </select>
                                 </div>
                                 <a href="hospital-near-you.html" class="main_btn" style="font-family: sans-serif;">Search</a>
